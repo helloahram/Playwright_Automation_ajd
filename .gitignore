@@ -1,0 +1,22 @@
+# Private Information 
+*.env     
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.eggs/
+*.egg-info/
+dist/
+build/
+venv/
+env/
+pip-wheel-metadata/
+.pytest_cache/
+.coverage*
+htmlcov/
