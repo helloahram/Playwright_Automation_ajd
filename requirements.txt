@@ -5,4 +5,3 @@ python-dotenv>=1.0
 pytest==8.3.3
 pytest-asyncio==0.24.0
 # pytest-playwright==0.5.0   # 원하면 활성화
-# allure-pytest==2.13.5      # 리포트 필요 시
