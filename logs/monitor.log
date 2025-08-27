@@ -1,0 +1,17 @@
+2025-08-27 10:49:51,873 | INFO | Starting monitor | interval=5s timeout=10000ms slow=3000ms headless=True
+2025-08-27 10:49:54,092 | INFO | OK  | AJD-Internet-Recommend | https://www.ajd.co.kr/internet/recommend | 907ms
+2025-08-27 10:49:54,532 | INFO | HTTP Request: POST https://hooks.slack.com/services/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 "HTTP/1.1 200 OK"
+2025-08-27 10:49:54,602 | INFO | Next check in 5s ...
+2025-08-27 10:50:01,384 | INFO | OK  | AJD-Internet-Recommend | https://www.ajd.co.kr/internet/recommend | 1712ms
+2025-08-27 10:50:01,745 | INFO | HTTP Request: POST https://hooks.slack.com/services/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 "HTTP/1.1 200 OK"
+2025-08-27 10:50:01,758 | INFO | Next check in 5s ...
+2025-08-27 10:50:07,513 | INFO | OK  | AJD-Internet-Recommend | https://www.ajd.co.kr/internet/recommend | 688ms
+2025-08-27 10:50:07,846 | INFO | HTTP Request: POST https://hooks.slack.com/services/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 "HTTP/1.1 200 OK"
+2025-08-27 10:50:07,856 | INFO | Next check in 5s ...
+2025-08-27 11:02:03,383 | INFO | Starting monitor | interval=5s timeout=10000ms slow=3000ms headless=True
+2025-08-27 11:02:05,400 | INFO | OK  | AJD-Internet-Recommend | https://www.ajd.co.kr/internet/recommend | 920ms
+2025-08-27 11:02:05,830 | INFO | HTTP Request: POST https://hooks.slack.com/services/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 "HTTP/1.1 200 OK"
+2025-08-27 11:02:05,856 | INFO | Next check in 5s ...
+2025-08-27 11:02:11,580 | INFO | OK  | AJD-Internet-Recommend | https://www.ajd.co.kr/internet/recommend | 645ms
+2025-08-27 11:02:11,933 | INFO | HTTP Request: POST https://hooks.slack.com/services/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 "HTTP/1.1 200 OK"
+2025-08-27 11:02:11,942 | INFO | Next check in 5s ...
