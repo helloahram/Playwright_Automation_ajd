@@ -1,8 +1,10 @@
 ## src/monitor/runner.py
 from __future__ import annotations
+
 import asyncio, os, logging, datetime, pathlib
 from dotenv import load_dotenv
 from playwright.async_api import async_playwright
+from playwright._impl._errors import Error as PlaywrightError
 
 from src.utils.logging_config import init_logging
 from src.utils.slack_notifier import get_slack_config, send_alert
@@ -38,7 +40,6 @@ async def snap(page, artifacts_dir: str, name: str, ok: bool = False) -> None:
 
 async def check_once(
     browser,
-    interval: int,
     artifacts_dir: str,
     timeout_ms: int,
     slow_ms: int,
@@ -71,7 +72,7 @@ async def check_once(
             is_slow = (not res.ok) and res.detail.startswith("Slow")
 
             if res.ok:
-                logging.info("OK  | %-13s | %s | %dms", name, res.url, res.load_ms)
+                logging.info("OK  | %-13s | %dms", name, res.load_ms)
 
                 # (옵션) 성공 케이스 스샷도 보관
                 if always_ss:
@@ -80,7 +81,7 @@ async def check_once(
                     except Exception as e:
                         logging.error("Screenshot failed: %r", e)
 
-                # 정상 상태도 슬랙 통지 (표현/포맷은 notifier가 담당)
+                # 정상 상태 슬랙 통지 (표현/ 포맷은 notifier가 담당)
                 if notify_ok:
                     await send_alert(
                         slack_cfg,
@@ -93,15 +94,9 @@ async def check_once(
 
             else:
                 ok_all = False
-                logging.error(
-                    "FAIL| %-13s | %s | %s | %dms",
-                    name,
-                    res.url,
-                    res.detail,
-                    res.load_ms,
-                )
+                logging.error("FAIL| %-13s | %s | %dms", name, res.detail, res.load_ms)
 
-                # 실패/ 느림 스샷 저장(증적)
+                # 실패/ 느림 스샷 저장 (증적)
                 try:
                     await snap(page, artifacts_dir, name, ok=False)
                 except Exception as e:
@@ -129,7 +124,14 @@ async def check_once(
                         detail=res.detail,
                     )
     finally:
-        await context.close()
+        try:
+            await page.close()
+        except Exception:
+            pass
+        try:
+            await context.close()
+        except Exception:
+            pass
 
     return ok_all
 
@@ -152,7 +154,7 @@ async def main() -> None:
     slack_cfg = get_slack_config()
 
     logging.info(
-        "Starting monitor | interval=%ss timeout=%sms slow=%sms headless=%s",
+        "Starting Monitor | interval=%ss timeout=%sms slow=%sms headless=%s",
         interval,
         timeout_ms,
         slow_ms,
@@ -167,7 +169,6 @@ async def main() -> None:
                 try:
                     await check_once(
                         browser=browser,
-                        interval=interval,
                         artifacts_dir="artifacts",
                         timeout_ms=timeout_ms,
                         slow_ms=slow_ms,
@@ -181,11 +182,26 @@ async def main() -> None:
                     logging.exception("Top-level check_once error: %r", e)
                 await asyncio.sleep(interval)
         finally:
-            await browser.close()
+            try:
+                await browser.close()
+            except Exception:
+                pass
 
 
 if __name__ == "__main__":
     try:
         asyncio.run(main())
     except KeyboardInterrupt:
-        print("Stopped by user")
+        logging.info("Stopped by user (KeyboardInterrupt)")
+        # exit(0) or sys.exit(0) 추가하면 더 깔끔
+    except asyncio.CancelledError:
+        logging.info("Stopped by cancellation")
+    except PlaywrightError as e:
+        # 이미 닫힌 세션 때문에 나오는 InvalidStateError는 깨끗하게 무시
+        if "invalid state" in str(e).lower():
+            logging.info("Stopped cleanly (Playwright already closed)")
+        else:
+            logging.exception("Unexpected Playwright error: %r", e)
+    except Exception as e:
+        # 마지막으로 모든 예외를 info로 처리하여 트레이스백 숨김
+        logging.info("Stopped by unknown exception: %r", e)
