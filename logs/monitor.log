@@ -1,9 +1,0 @@
-2025-08-27 14:14:29,977 | INFO | Starting monitor | interval=5s timeout=10000ms slow=3000ms headless=True
-2025-08-27 14:14:32,083 | INFO | OK  | AJD-Main-Page | https://www.ajd.co.kr/ | 887ms
-2025-08-27 14:14:32,589 | INFO | HTTP Request: POST https://hooks.slack.com/services/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 "HTTP/1.1 200 OK"
-2025-08-27 14:14:33,362 | INFO | OK  | AJD-Internet-Recommend | https://www.ajd.co.kr/internet/recommend | 596ms
-2025-08-27 14:14:33,703 | INFO | HTTP Request: POST https://hooks.slack.com/services/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 "HTTP/1.1 200 OK"
-2025-08-27 14:14:39,527 | INFO | OK  | AJD-Main-Page | https://www.ajd.co.kr/ | 657ms
-2025-08-27 14:14:39,937 | INFO | HTTP Request: POST https://hooks.slack.com/services/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 "HTTP/1.1 200 OK"
-2025-08-27 14:14:41,076 | INFO | OK  | AJD-Internet-Recommend | https://www.ajd.co.kr/internet/recommend | 970ms
-2025-08-27 14:14:41,422 | INFO | HTTP Request: POST https://hooks.slack.com/services/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 "HTTP/1.1 200 OK"

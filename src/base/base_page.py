@@ -22,7 +22,7 @@ class BasePage:
         self.url = url
 
     async def _goto_and_measure(self, timeout_ms: int) -> tuple[int, int]:
-        """URL 이동 + 로드 시간/HTTP 상태코드 측정"""
+        """URL 이동 + 로드 시간/ HTTP 상태코드 측정"""
         t0 = time.perf_counter()
         resp = await self.page.goto(
             self.url, timeout=timeout_ms, wait_until="domcontentloaded"
