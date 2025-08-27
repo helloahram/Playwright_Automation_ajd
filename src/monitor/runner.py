@@ -1,4 +1,4 @@
-# src/monitor/runner.py
+## src/monitor/runner.py
 from __future__ import annotations
 import asyncio, os, logging, datetime, pathlib
 from dotenv import load_dotenv
@@ -7,6 +7,7 @@ from playwright.async_api import async_playwright
 from src.utils.logging_config import init_logging
 from src.utils.slack_notifier import get_slack_config, send_alert
 from src.pages.ajd_internet_recommend_page import AjdInternetRecommend
+from src.pages.ajd_main_page import AjdMainPage
 
 
 def env_int(key: str, default: int) -> int:
@@ -58,6 +59,7 @@ async def check_once(
     page = await context.new_page()
     try:
         targets = [
+            ("AJD-Main-Page", AjdMainPage(page)),
             ("AJD-Internet-Recommend", AjdInternetRecommend(page)),
         ]
 
@@ -129,7 +131,6 @@ async def check_once(
     finally:
         await context.close()
 
-    logging.info("Next check in %ss ...", interval)
     return ok_all
 
 
