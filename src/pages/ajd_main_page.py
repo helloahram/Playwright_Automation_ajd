@@ -1,6 +1,6 @@
 ## src/pages/ajd_main_page.py
 from playwright.async_api import Page
-from src.base.base_page import BasePage, PageCheckResult
+from src.base.base_page import BasePage
 
 
 class AjdMainPage(BasePage):
