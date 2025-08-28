@@ -27,19 +27,26 @@ python -m src.monitor.runner
 ```
 Project/
 │
-├─ base/                    # 기본 페이지 및 공통 동작
-│   └─ base_page.py
+├─ artifacts/               # 스크린샷, 증적 파일 저장
+├─ logs/                    # 실행 로그 (monitor.log)
+├─ src/                     # 소스 코드 루트
+│   ├─ base/                # 기본 페이지 및 공통 동작
+│   │   └─ base_page.py
+│   │
+│   ├─ pages/               # 페이지 오브젝트 정의 (POM)
+│   │   ├─ ajd_main_page.py
+│   │   └─ ajd_internet_recommend_page.py
+│   │
+│   ├─ utils/               # 공용 유틸리티 (로깅/ 알림 등 공통 기능 모듈)
+│   │   ├─ logging_config.py    # 로그 포맷/ 파일 회전/ Slack URL 마스킹 등 로깅 설정
+│   │   └─ slack_notifier.py    # Slack 알림 발송 유틸리티 (Webhook 사용)
+│   │
+│   └─ monitor/             # 모니터링/ 실행 관련 모듈
+│       └─ runner.py
 │
-├─ pages/                   # 페이지 오브젝트 정의 (POM)
-│   ├─ ajd_main_page.py
-│   └─ ajd_internet_recommend_page.py
-│
-├─ lib/                     # 공용 유틸리티 (로깅/알림 등 공통 기능 모듈)
-│   ├─ logging_config.py    # 로그 포맷/ 파일 회전/ Slack URL 마스킹 등 로깅 설정
-│   └─ slack_notifier.py    # Slack 알림 발송 유틸리티 (Webhook 사용)
-│
-├─ monitor/                 # 모니터링/실행 관련 모듈
-│   └─ runner.py
-│
-├─ .env.example             # 환경 변수 예시 파일
+├─ venv/                    # 가상 환경
+├─ .env.example             # 환경 변수 예시
+├─ .gitignore
+├─ README.md
+└─ requirements.txt
 ```
