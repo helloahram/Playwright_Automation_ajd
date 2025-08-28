@@ -1,7 +1,4 @@
-# 실행에 필요한 파이썬 패키지들
+# Python packages required for execution
 playwright[browsers]==1.46.0
 httpx>=0.27
 python-dotenv>=1.0
-pytest==8.3.3
-pytest-asyncio==0.24.0
-# pytest-playwright==0.5.0   # 원하면 활성화
